@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wicked Log Road 👠</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-dark: #0b0710;
+      --bg-panel: #1a1024;
+      --bg-panel-alt: #241433;
+      --accent-yellow: #f7c844;
+      --accent-yellow-soft: #ffe79a;
+      --accent-green: #38c172;
+      --accent-purple: #8b5cf6;
+      --accent-red: #f56565;
+      --text-main: #f9fafb;
+      --text-muted: #a0aec0;
+      --border-subtle: rgba(255,255,255,0.08);
+      --brick-line: rgba(0,0,0,0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #341143 0%, #0b0710 60%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 1200px;
+      background: linear-gradient(to bottom, rgba(247,200,68,0.12), rgba(0,0,0,0.6));
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.04);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(16px);
+    }
+
+    header.app-header {
+      position: relative;
+      padding: 18px 24px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          var(--accent-yellow-soft),
+          var(--accent-yellow-soft) 14px,
+          #e0b541 14px,
+          #e0b541 16px
+        );
+      background-size: 180% 180%;
+      animation: bricks 18s linear infinite;
+    }
+
+    @keyframes bricks {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    header.app-header::after {
+      content: "🧙‍♀️";
+      position: absolute;
+      right: 32px;
+      top: 12px;
+      font-size: 40px;
+      filter: drop-shadow(0 0 10px rgba(0,0,0,0.4));
+      transform: rotate(-8deg);
+    }
+
+    .logo-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #ffffff, #f7c844 40%, #e67f33 75%, #7f351e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow:
+        0 10px 20px rgba(0,0,0,0.4),
+        0 0 0 3px rgba(0,0,0,0.15);
+    }
+
+    .header-text h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #2d0a1a;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    }
+
+    .header-text p {
+      margin: 2px 0 0;
+      font-size: 0.86rem;
+      color: #4b1b26;
+      font-weight: 500;
+    }
+
+    main.app-main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(260px, 0.9fr);
+      gap: 0;
+      min-height: 520px;
+    }
+
+    @media (max-width: 900px) {
+      main.app-main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .left-pane {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top, rgba(255,231,154,0.12), rgba(0,0,0,0.8));
+    }
+
+    .right-pane {
+      background: linear-gradient(to bottom, rgba(139,92,246,0.24), rgba(0,0,0,0.9));
+      padding: 16px 18px 18px;
+    }
+
+    .controls-bar {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      background: rgba(26,16,36,0.95);
+    }
+
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      flex: 1;
+    }
+
+    .field-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .field-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    input[type="text"],
+    select {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      min-width: 0;
+    }
+
+    input[type="text"]:focus,
+    select:focus {
+      border-color: var(--accent-yellow);
+      box-shadow: 0 0 0 1px rgba(247,200,68,0.4);
+    }
+
+    input[type="file"] {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.6);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      background: radial-gradient(circle at 20% 0, #fff9dc, #f7c844);
+      color: #3b1a06;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow:
+        0 3px 8px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(255,255,255,0.3);
+      white-space: nowrap;
+    }
+
+    .btn-secondary {
+      background: linear-gradient(to bottom right, #241433, #0f0a18);
+      color: var(--accent-yellow-soft);
+      border-color: rgba(255,255,255,0.12);
+      box-shadow:
+        0 3px 8px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow:
+        0 1px 4px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.35);
+    }
+
+    .btn-icon {
+      font-size: 1rem;
+    }
+
+    .toggle-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 4px 9px;
+      background: rgba(10,10,10,0.6);
+      cursor: pointer;
+    }
+
+    .toggle-chip input {
+      margin: 0;
+    }
+
+    .log-table-wrap {
+      flex: 1;
+      overflow: auto;
+      padding: 10px 18px 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    thead tr {
+      background:
+        repeating-linear-gradient(
+          45deg,
+          #f7c844,
+          #f7c844 14px,
+          #e0b541 14px,
+          #e0b541 16px
+        );
+    }
+
+    th, td {
+      padding: 6px 8px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #3b1a06;
+    }
+
+    tbody tr {
+      background: rgba(11,7,16,0.88);
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.06s ease;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(21,14,29,0.9);
+    }
+
+    tbody tr:hover {
+      background: rgba(63,35,90,0.95);
+      transform: translateY(-1px);
+    }
+
+    tbody tr.selected {
+      outline: 1px solid var(--accent-yellow);
+      box-shadow: 0 0 0 1px rgba(247,200,68,0.6);
+      position: relative;
+    }
+
+    tbody tr.selected::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, var(--accent-yellow), var(--accent-purple));
+    }
+
+    .level-pill {
+      display: inline-flex;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .level-INFO {
+      background: rgba(99,179,237,0.16);
+      color: #90cdf4;
+    }
+    .level-WARN {
+      background: rgba(237,173,62,0.16);
+      color: #f6e05e;
+    }
+    .level-ERROR {
+      background: rgba(245,101,101,0.16);
+      color: #feb2b2;
+    }
+    .level-CRITICAL,
+    .level-ALERT {
+      background: rgba(254,178,178,0.2);
+      color: #fed7d7;
+      border: 1px solid rgba(245,101,101,0.7);
+    }
+
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 1px 7px;
+      font-size: 0.7rem;
+      margin-right: 4px;
+      margin-bottom: 3px;
+      background: rgba(139,92,246,0.16);
+      color: #e9d8fd;
+      border: 1px solid rgba(139,92,246,0.7);
+    }
+
+    .tag-pill span.remove {
+      margin-left: 4px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    .muted {
+      color: var(--text-muted);
+    }
+
+    .right-pane-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .right-pane-header h2 {
+      margin: 0;
+      font-size: 0.98rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #fefcbf;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(15,10,24,0.9);
+      color: var(--text-muted);
+    }
+
+    .detail-card {
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background:
+        linear-gradient(135deg, rgba(37,17,68,0.9), rgba(4,7,18,0.95));
+      padding: 12px 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-height: 140px;
+    }
+
+    .detail-line {
+      font-size: 0.8rem;
+      display: flex;
+      gap: 6px;
+    }
+
+    .detail-label {
+      width: 82px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      flex-shrink: 0;
+    }
+
+    .detail-value {
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .detail-message {
+      font-size: 0.82rem;
+      line-height: 1.4;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .tag-editor {
+      margin-top: 6px;
+      border-top: 1px dashed rgba(255,255,255,0.24);
+      padding-top: 6px;
+    }
+
+    .tag-editor-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag-editor-row input[type="text"] {
+      flex: 1;
+      border-radius: 10px;
+    }
+
+    .helper-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 0.76rem;
+    }
+
+    .stats-bar span {
+      color: var(--text-muted);
+    }
+
+    .brick-path {
+      margin-top: 10px;
+      border-radius: 999px;
+      height: 18px;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          var(--accent-yellow-soft),
+          var(--accent-yellow-soft) 18px,
+          #f2c94c 18px,
+          #f2c94c 21px
+        );
+      box-shadow:
+        0 0 0 1px var(--brick-line),
+        0 6px 14px rgba(0,0,0,0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brick-path::after {
+      content: "🧱";
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      animation: brick-walk 10s linear infinite;
+    }
+
+    @keyframes brick-walk {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(400px); }
+    }
+
+    .empty-state {
+      font-size: 0.8rem;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px dashed rgba(255,255,255,0.25);
+      background: rgba(0,0,0,0.5);
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .pill-inline {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 1px 6px;
+      font-size: 0.72rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pill-inline span {
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="logo-circle">👠</div>
+      <div class="header-text">
+        <h1>Wicked Log Road</h1>
+        <p>Follow the yellow brick road to your suspicious events.</p>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="left-pane">
+        <div class="controls-bar">
+          <div class="controls-row">
+            <div class="field-group" style="flex:1">
+              <span class="field-label">Search</span>
+              <input id="searchInput" type="text" placeholder="user=root, ip:10.0.0.13, 'failed password'…" />
+            </div>
+
+            <div class="field-group">
+              <span class="field-label">Level</span>
+              <select id="levelFilter">
+                <option value="ALL">All</option>
+                <option value="INFO">Info</option>
+                <option value="WARN">Warn</option>
+                <option value="ERROR">Error</option>
+                <option value="CRITICAL">Critical</option>
+                <option value="ALERT">Alert</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <span class="field-label">Tag</span>
+              <select id="tagFilter">
+                <option value="ALL">Any</option>
+                <option value="Suspicious">Suspicious</option>
+                <option value="Benign">Benign</option>
+                <option value="Investigate">Investigate</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="controls-row" style="justify-content:flex-end">
+            <label class="toggle-chip">
+              <input id="onlyTagged" type="checkbox" />
+              <span>Only tagged</span>
+            </label>
+            <button id="sampleBtn" class="btn-secondary">
+              <span class="btn-icon">✨</span> Sample logs
+            </button>
+          </div>
+
+          <div class="controls-row" style="margin-top:6px">
+            <div class="field-group">
+              <span class="field-label">Upload</span>
+              <input id="fileInput" type="file" accept=".log,.txt,.jsonl,.json" />
+            </div>
+          </div>
+        </div>
+
+        <div class="log-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:150px;">Timestamp</th>
+                <th style="width:80px;">Level</th>
+                <th style="width:120px;">Source</th>
+                <th>Message</th>
+                <th style="width:140px;">Tags</th>
+              </tr>
+            </thead>
+            <tbody id="logTableBody">
+              <!-- rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="right-pane">
+        <div class="right-pane-header">
+          <h2>Event Details</h2>
+          <span id="selectionBadge" class="badge">No event selected</span>
+        </div>
+
+        <div class="detail-card" id="detailCard">
+          <div class="empty-state" id="emptyState">
+            Tap a row on the left to see the full event here, then sprinkle tags like
+            <span class="pill-inline"><span>🧙‍♀️</span> Suspicious</span> or
+            <span class="pill-inline"><span>🪄</span> Benign</span>.
+          </div>
+
+          <div id="detailContent" style="display:none;">
+            <div class="detail-line">
+              <div class="detail-label">Time</div>
+              <div class="detail-value" id="detailTime"></div>
+            </div>
+            <div class="detail-line">
+              <div class="detail-label">Level</div>
+              <div class="detail-value" id="detailLevel"></div>
+            </div>
+            <div class="detail-line">
+              <div class="detail-label">Source</div>
+              <div class="detail-value" id="detailSource"></div>
+            </div>
+            <div class="detail-line">
+              <div class="detail-label">Category</div>
+              <div class="detail-value" id="detailCategory"></div>
+            </div>
+            <div class="detail-line">
+              <div class="detail-label">Message</div>
+              <div class="detail-value">
+                <div class="detail-message" id="detailMessage"></div>
+              </div>
+            </div>
+
+            <div class="tag-editor">
+              <div class="detail-line">
+                <div class="detail-label">Tags</div>
+                <div class="detail-value">
+                  <div id="detailTags"></div>
+                </div>
+              </div>
+              <div class="tag-editor-row">
+                <input id="tagInput" type="text" placeholder="Add tag (e.g. 'Suspicious', 'Brute-force')" />
+                <button id="addTagBtn" class="btn" style="padding-inline:10px;">
+                  <span class="btn-icon">➕</span> Add
+                </button>
+              </div>
+              <p class="helper-text">
+                Press Enter to add a tag. Remove tags by clicking the ✕.
+              </p>
+            </div>
+          </div>
+
+          <div class="stats-bar">
+            <span id="statsLeft">0 events</span>
+            <span id="statsRight">0 suspicious on the road</span>
+          </div>
+        </div>
+
+        <div class="brick-path"></div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // --- Sample security-ish logs (inspired by typical auth/web logs) ---
+    const SAMPLE_LOGS = [
+      {
+        id: "s1",
+        timestamp: "2025-12-10T13:31:02Z",
+        level: "WARN",
+        source: "auth.log",
+        category: "Authentication",
+        message: "Failed password for invalid user admin from 203.0.113.42 port 45210 ssh2",
+        tags: ["Suspicious"]
+      },
+      {
+        id: "s2",
+        timestamp: "2025-12-10T13:31:08Z",
+        level: "WARN",
+        source: "auth.log",
+        category: "Authentication",
+        message: "Failed password for invalid user root from 203.0.113.42 port 45212 ssh2",
+        tags: ["Suspicious", "Brute-force"]
+      },
+      {
+        id: "s3",
+        timestamp: "2025-12-10T13:31:23Z",
+        level: "INFO",
+        source: "nginx",
+        category: "Web",
+        message: '200 GET /index.html 192.0.2.10 "Mozilla/5.0"',
+        tags: []
+      },
+      {
+        id: "s4",
+        timestamp: "2025-12-10T13:31:27Z",
+        level: "ERROR",
+        source: "nginx",
+        category: "Web",
+        message: '500 POST /api/login 198.51.100.77 "sqlmap/1.6.12" payload="\' OR 1=1--"',
+        tags: ["Suspicious", "SQLi"]
+      },
+      {
+        id: "s5",
+        timestamp: "2025-12-10T13:31:40Z",
+        level: "INFO",
+        source: "windows-event",
+        category: "Authentication",
+        message: "Audit Success: User logon. Account Name: HANIN-LAPTOP\\\\yasmin, Logon Type: 2, Source Network Address: ::1",
+        tags: ["Benign"]
+      },
+      {
+        id: "s6",
+        timestamp: "2025-12-10T13:32:05Z",
+        level: "ALERT",
+        source: "ids",
+        category: "Network",
+        message: "Multiple authentication failures for user 'service-account' from 203.0.113.42 detected within 60 seconds (threshold=5)",
+        tags: ["Suspicious", "Investigate"]
+      },
+      {
+        id: "s7",
+        timestamp: "2025-12-10T13:33:20Z",
+        level: "CRITICAL",
+        source: "cloud-audit",
+        category: "IAM",
+        message: "IAM policy updated: user 'temp-admin' attached role 'AdministratorAccess' from unknown IP 198.51.100.99",
+        tags: ["Suspicious", "Privilege escalation"]
+      },
+      {
+        id: "s8",
+        timestamp: "2025-12-10T13:35:00Z",
+        level: "INFO",
+        source: "vpn",
+        category: "Remote Access",
+        message: "VPN connection established: user=doctor.miller, ip=10.10.10.54, location=GBR",
+        tags: []
+      }
+    ];
+
+    let logs = [...SAMPLE_LOGS];
+    let selectedId = null;
+
+    const searchInput = document.getElementById("searchInput");
+    const levelFilter = document.getElementById("levelFilter");
+    const tagFilter = document.getElementById("tagFilter");
+    const onlyTagged = document.getElementById("onlyTagged");
+    const logTableBody = document.getElementById("logTableBody");
+    const fileInput = document.getElementById("fileInput");
+    const sampleBtn = document.getElementById("sampleBtn");
+
+    const selectionBadge = document.getElementById("selectionBadge");
+    const emptyState = document.getElementById("emptyState");
+    const detailContent = document.getElementById("detailContent");
+    const detailTime = document.getElementById("detailTime");
+    const detailLevel = document.getElementById("detailLevel");
+    const detailSource = document.getElementById("detailSource");
+    const detailCategory = document.getElementById("detailCategory");
+    const detailMessage = document.getElementById("detailMessage");
+    const detailTags = document.getElementById("detailTags");
+    const tagInput = document.getElementById("tagInput");
+    const addTagBtn = document.getElementById("addTagBtn");
+    const statsLeft = document.getElementById("statsLeft");
+    const statsRight = document.getElementById("statsRight");
+
+    function getFilters() {
+      return {
+        text: searchInput.value.trim().toLowerCase(),
+        level: levelFilter.value,
+        tag: tagFilter.value,
+        onlyTagged: onlyTagged.checked
+      };
+    }
+
+    function formatTime(iso) {
+      if (!iso) return "";
+      try {
+        const d = new Date(iso);
+        if (isNaN(d.getTime())) return iso;
+        return d.toLocaleString();
+      } catch {
+        return iso;
+      }
+    }
+
+    function applyFilters() {
+      const { text, level, tag, onlyTagged } = getFilters();
+      const taggedCounts = { Suspicious: 0 };
+      let filtered = logs.filter(l => {
+        if (level !== "ALL" && l.level !== level) return false;
+        if (onlyTagged && (!l.tags || l.tags.length === 0)) return false;
+        if (tag !== "ALL") {
+          if (!l.tags || !l.tags.includes(tag)) return false;
+        }
+        if (text) {
+          const hay = (
+            (l.message || "") +
+            " " + (l.source || "") +
+            " " + (l.category || "") +
+            " " + (l.level || "") +
+            " " + (l.tags || []).join(" ")
+          ).toLowerCase();
+          if (!hay.includes(text)) return false;
+        }
+        if (l.tags && l.tags.includes("Suspicious")) {
+          taggedCounts.Suspicious++;
+        }
+        return true;
+      });
+
+      return { filtered, taggedCounts };
+    }
+
+    function renderTable() {
+      const { filtered, taggedCounts } = applyFilters();
+      logTableBody.innerHTML = "";
+
+      filtered.forEach(log => {
+        const tr = document.createElement("tr");
+        tr.dataset.id = log.id;
+        if (log.id === selectedId) tr.classList.add("selected");
+
+        const tdTime = document.createElement("td");
+        tdTime.textContent = formatTime(log.timestamp);
+
+        const tdLevel = document.createElement("td");
+        const spanLevel = document.createElement("span");
+        spanLevel.className = "level-pill level-" + (log.level || "INFO");
+        spanLevel.textContent = log.level || "INFO";
+        tdLevel.appendChild(spanLevel);
+
+        const tdSrc = document.createElement("td");
+        tdSrc.textContent = log.source || "-";
+
+        const tdMsg = document.createElement("td");
+        tdMsg.textContent = log.message || "";
+
+        const tdTags = document.createElement("td");
+        if (log.tags && log.tags.length) {
+          log.tags.forEach(t => {
+            const pill = document.createElement("span");
+            pill.className = "tag-pill";
+            pill.textContent = t;
+            tdTags.appendChild(pill);
+          });
+        } else {
+          const span = document.createElement("span");
+          span.className = "muted";
+          span.textContent = "—";
+          tdTags.appendChild(span);
+        }
+
+        tr.appendChild(tdTime);
+        tr.appendChild(tdLevel);
+        tr.appendChild(tdSrc);
+        tr.appendChild(tdMsg);
+        tr.appendChild(tdTags);
+
+        tr.addEventListener("click", () => {
+          selectedId = log.id;
+          renderTable();
+          renderDetail();
+        });
+
+        logTableBody.appendChild(tr);
+      });
+
+      statsLeft.textContent = `${filtered.length} event${filtered.length === 1 ? "" : "s"}`;
+      statsRight.textContent = `${taggedCounts.Suspicious || 0} suspicious on the road`;
+    }
+
+    function renderDetail() {
+      const log = logs.find(l => l.id === selectedId);
+      if (!log) {
+        selectionBadge.textContent = "No event selected";
+        emptyState.style.display = "block";
+        detailContent.style.display = "none";
+        return;
+      }
+      selectionBadge.textContent = log.id;
+      emptyState.style.display = "none";
+      detailContent.style.display = "block";
+
+      detailTime.textContent = formatTime(log.timestamp);
+      detailLevel.innerHTML = `<span class="level-pill level-${log.level}">${log.level}</span>`;
+      detailSource.textContent = log.source || "-";
+      detailCategory.textContent = log.category || "-";
+      detailMessage.textContent = log.message || "";
+
+      renderDetailTags(log);
+    }
+
+    function renderDetailTags(log) {
+      detailTags.innerHTML = "";
+      (log.tags || []).forEach(tag => {
+        const pill = document.createElement("span");
+        pill.className = "tag-pill";
+        const label = document.createElement("span");
+        label.textContent = tag;
+        const remove = document.createElement("span");
+        remove.className = "remove";
+        remove.textContent = "✕";
+        remove.addEventListener("click", (e) => {
+          e.stopPropagation();
+          log.tags = (log.tags || []).filter(t => t !== tag);
+          renderTable();
+          renderDetail();
+        });
+        pill.appendChild(label);
+        pill.appendChild(remove);
+        detailTags.appendChild(pill);
+      });
+
+      if (!log.tags || log.tags.length === 0) {
+        const span = document.createElement("span");
+        span.className = "muted";
+        span.textContent = "No tags yet — start the witchcraft! ✨";
+        detailTags.appendChild(span);
+      }
+    }
+
+    function addTagToSelected(tag) {
+      const t = tag.trim();
+      if (!t) return;
+      const log = logs.find(l => l.id === selectedId);
+      if (!log) return;
+      if (!log.tags) log.tags = [];
+      if (!log.tags.includes(t)) {
+        log.tags.push(t);
+        tagInput.value = "";
+        renderTable();
+        renderDetail();
+      }
+    }
+
+    function parseUploadedText(text) {
+      const lines = text.split(/\r?\n/);
+      const newLogs = [];
+      let count = 0;
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+
+        let obj = null;
+        // Try JSON/JSONL
+        if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+          try {
+            const parsed = JSON.parse(trimmed);
+            obj = {
+              id: "u-" + Date.now() + "-" + count,
+              timestamp: parsed.timestamp || parsed.time || parsed["@timestamp"] || new Date().toISOString(),
+              level: (parsed.level || parsed.severity || "INFO").toString().toUpperCase(),
+              source: parsed.source || parsed.app || parsed.logger || "uploaded.jsonl",
+              category: parsed.category || parsed.type || "Uploaded",
+              message: parsed.message || parsed.msg || trimmed,
+              tags: []
+            };
+          } catch {
+            // fall back to free-form
+          }
+        }
+
+        if (!obj) {
+          // Very simple syslog-like parse: "timestamp level source message..."
+          const m = trimmed.match(/^(\S+\s+\d+\s+\d+:\d+:\d+|\d{4}-\d{2}-\d{2}T\S+Z?)?\s*(INFO|WARN|ERROR|CRITICAL|ALERT)?\s*([^:]+)?:?\s*(.*)$/i);
+          let ts = new Date().toISOString();
+          let level = "INFO";
+          let source = "uploaded.log";
+          let msg = trimmed;
+          if (m) {
+            if (m[1]) ts = m[1];
+            if (m[2]) level = m[2].toUpperCase();
+            if (m[3]) source = m[3].trim() || source;
+            if (m[4]) msg = m[4];
+          }
+          obj = {
+            id: "u-" + Date.now() + "-" + count,
+            timestamp: ts,
+            level,
+            source,
+            category: "Uploaded",
+            message: msg,
+            tags: []
+          };
+        }
+
+        newLogs.push(obj);
+        count++;
+      }
+
+      return newLogs;
+    }
+
+    // --- Event listeners ---
+    searchInput.addEventListener("input", renderTable);
+    levelFilter.addEventListener("change", renderTable);
+    tagFilter.addEventListener("change", renderTable);
+    onlyTagged.addEventListener("change", renderTable);
+
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const text = ev.target.result;
+        const newLogs = parseUploadedText(text);
+        logs = logs.concat(newLogs);
+        renderTable();
+      };
+      reader.readAsText(file);
+    });
+
+    sampleBtn.addEventListener("click", () => {
+      logs = [...SAMPLE_LOGS];
+      selectedId = null;
+      searchInput.value = "";
+      levelFilter.value = "ALL";
+      tagFilter.value = "ALL";
+      onlyTagged.checked = false;
+      renderTable();
+      renderDetail();
+    });
+
+    addTagBtn.addEventListener("click", () => {
+      addTagToSelected(tagInput.value);
+    });
+
+    tagInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        addTagToSelected(tagInput.value);
+      }
+    });
+
+    // --- Initial render ---
+    renderTable();
+    renderDetail();
+  </script>
+</body>
+</html>
+
+
