@@ -1,0 +1,5 @@
+name = "wicked-log-road"
+compatibility_date = "2025-12-10"
+
+[site]
+bucket = "./myapp/dist"

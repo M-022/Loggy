@@ -1,0 +1,13 @@
+{
+  "name": "loggy",
+  "version": "1.0.0",
+  "description": "Wicked Log Road - Interactive log viewer",
+  "scripts": {
+    "build": "cd myapp && npm install && npm run build",
+    "dev": "cd myapp && npm run dev",
+    "preview": "cd myapp && npm run preview"
+  },
+  "keywords": ["log", "viewer", "security", "wicked"],
+  "author": "",
+  "license": "MIT"
+}
