@@ -2,22 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Wicked Log Road 👠</title>
+  <title>Wicked Log Road - By Yasmin and Samuel 👠</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg-dark: #0b0710;
-      --bg-panel: #1a1024;
-      --bg-panel-alt: #241433;
-      --accent-yellow: #f7c844;
-      --accent-yellow-soft: #ffe79a;
-      --accent-green: #38c172;
-      --accent-purple: #8b5cf6;
+      --bg-dark: #040b05;
+      --bg-panel: #102015;
+      --bg-panel-alt: #13271a;
+      --accent-yellow: #f4d97a;
+      --accent-yellow-soft: #fff2b3;
+      --accent-green: #2fbf71;     /* Elphaba / Emerald */
+      --accent-emerald: #139f5b;
+      --accent-pink: #f9a8d4;      /* Glinda pastel pink */
+      --accent-rose: #fb7185;
+      --accent-purple: #a855f7;
       --accent-red: #f56565;
       --text-main: #f9fafb;
       --text-muted: #a0aec0;
       --border-subtle: rgba(255,255,255,0.08);
-      --brick-line: rgba(0,0,0,0.18);
+      --brick-line: rgba(0,0,0,0.25);
     }
 
     * {
@@ -27,91 +30,143 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #341143 0%, #0b0710 60%);
+      background:
+        radial-gradient(circle at top, #103d26 0%, #040b05 60%);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       padding: 16px;
+      /* Green wand cursor */
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='11' y='5' width='2' height='16' fill='%23139f5b'/%3E%3Ccircle cx='12' cy='5' r='3' fill='%23baf5d0'/%3E%3Cline x1='12' y1='0' x2='12' y2='3' stroke='%23e5fffb' stroke-width='1'/%3E%3Cline x1='9' y1='2' x2='11' y2='4' stroke='%23e5fffb' stroke-width='1'/%3E%3Cline x1='13' y1='4' x2='15' y2='2' stroke='%23e5fffb' stroke-width='1'/%3E%3C/svg%3E") 4 2, auto;
     }
 
     .app-shell {
       width: 100%;
       max-width: 1200px;
-      background: linear-gradient(to bottom, rgba(247,200,68,0.12), rgba(0,0,0,0.6));
+      background: linear-gradient(
+        to bottom,
+        rgba(9, 40, 20, 0.95),
+        rgba(8, 17, 12, 0.98)
+      );
       border-radius: 24px;
       border: 1px solid rgba(255,255,255,0.08);
       box-shadow:
-        0 30px 80px rgba(0,0,0,0.6),
-        0 0 0 1px rgba(255,255,255,0.04);
+        0 30px 80px rgba(0,0,0,0.7),
+        0 0 0 1px rgba(0,0,0,0.8);
       overflow: hidden;
       display: flex;
       flex-direction: column;
       backdrop-filter: blur(16px);
     }
 
+    /* YELLOW BRICK BANNER HEADER */
     header.app-header {
       position: relative;
       padding: 18px 24px 16px;
       display: flex;
       align-items: center;
       gap: 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(0,0,0,0.35);
       background:
         repeating-linear-gradient(
           -45deg,
           var(--accent-yellow-soft),
-          var(--accent-yellow-soft) 14px,
-          #e0b541 14px,
-          #e0b541 16px
+          var(--accent-yellow-soft) 18px,
+          #f0d062 18px,
+          #f0d062 21px
         );
-      background-size: 180% 180%;
-      animation: bricks 18s linear infinite;
+      background-size: 140% 140%;
+      animation: bricks-slow 30s linear infinite;
     }
 
-    @keyframes bricks {
+    @keyframes bricks-slow {
       0% { background-position: 0% 0%; }
       100% { background-position: 100% 100%; }
     }
 
-    header.app-header::after {
-      content: "🧙‍♀️";
-      position: absolute;
-      right: 32px;
-      top: 12px;
-      font-size: 40px;
-      filter: drop-shadow(0 0 10px rgba(0,0,0,0.4));
-      transform: rotate(-8deg);
-    }
-
+    /* Sparkly red shoe logo */
     .logo-circle {
+      position: relative;
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 20%, #ffffff, #f7c844 40%, #e67f33 75%, #7f351e 100%);
+      background: radial-gradient(
+        circle at 30% 20%,
+        #fff7f7,
+        #ff8ba7 35%,
+        #ff003c 70%,
+        #7a001c 100%
+      );
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 28px;
       box-shadow:
         0 10px 20px rgba(0,0,0,0.4),
-        0 0 0 3px rgba(0,0,0,0.15);
+        0 0 0 3px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    .logo-circle span {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Glistening sparkle overlay */
+    .logo-circle::after {
+      content: "✨";
+      position: absolute;
+      top: 6px;
+      left: -10px;
+      font-size: 18px;
+      opacity: 0;
+      animation: sparkle 2.4s infinite ease-in-out;
+    }
+
+    @keyframes sparkle {
+      0%   { transform: translateX(0) translateY(0); opacity: 0; }
+      25%  { opacity: 1; }
+      50%  { transform: translateX(36px) translateY(-6px); opacity: 0.8; }
+      75%  { opacity: 0; }
+      100% { transform: translateX(0) translateY(0); opacity: 0; }
     }
 
     .header-text h1 {
       margin: 0;
       font-size: 1.5rem;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #2d0a1a;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+      color: #302109;
     }
 
     .header-text p {
       margin: 2px 0 0;
       font-size: 0.86rem;
-      color: #4b1b26;
+      color: #5a4318;
       font-weight: 500;
+    }
+
+    /* Glinda + Elphaba orb */
+    .header-orb {
+      margin-left: auto;
+      font-size: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0% 0%, #f9a8d4 0%, #22c55e 60%, #064e3b 100%);
+      box-shadow:
+        0 0 18px rgba(19,159,91,0.8),
+        0 0 30px rgba(249,168,212,0.7);
+    }
+
+    .header-orb span.label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #fefce8;
     }
 
     main.app-main {
@@ -130,31 +185,34 @@
     .left-pane {
       display: flex;
       flex-direction: column;
-      border-right: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at top, rgba(255,231,154,0.12), rgba(0,0,0,0.8));
+      border-right: 1px solid rgba(0,0,0,0.6);
+      background:
+        radial-gradient(circle at top left, rgba(33,115,70,0.35), rgba(4,7,5,0.98));
     }
 
+    /* Right pane with subtle pink + green contrast (Glinda/Elphaba) */
     .right-pane {
-      background: linear-gradient(to bottom, rgba(139,92,246,0.24), rgba(0,0,0,0.9));
+      background:
+        radial-gradient(circle at top right, rgba(249,168,212,0.16), transparent 45%),
+        radial-gradient(circle at top left, rgba(34,197,94,0.18), transparent 60%),
+        linear-gradient(to bottom, #020b06, #020705);
       padding: 16px 18px 18px;
     }
 
     .controls-bar {
       padding: 12px 18px;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid rgba(0,0,0,0.6);
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
-      background: rgba(26,16,36,0.95);
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(5,15,9,0.96);
     }
 
     .controls-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
       align-items: center;
-      flex: 1;
     }
 
     .field-group {
@@ -172,7 +230,7 @@
 
     input[type="text"],
     select {
-      background: rgba(0,0,0,0.35);
+      background: rgba(0,0,0,0.5);
       border: 1px solid var(--border-subtle);
       border-radius: 999px;
       padding: 6px 10px;
@@ -184,8 +242,8 @@
 
     input[type="text"]:focus,
     select:focus {
-      border-color: var(--accent-yellow);
-      box-shadow: 0 0 0 1px rgba(247,200,68,0.4);
+      border-color: var(--accent-emerald);
+      box-shadow: 0 0 0 1px rgba(19,159,91,0.6);
     }
 
     input[type="file"] {
@@ -195,36 +253,36 @@
 
     .btn {
       border-radius: 999px;
-      border: 1px solid rgba(0,0,0,0.6);
+      border: 1px solid rgba(0,0,0,0.7);
       padding: 6px 12px;
       font-size: 0.8rem;
-      background: radial-gradient(circle at 20% 0, #fff9dc, #f7c844);
-      color: #3b1a06;
+      background: radial-gradient(circle at 20% 0, #ffeef9, #f9a8d4);
+      color: #3b0714;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       box-shadow:
-        0 3px 8px rgba(0,0,0,0.45),
-        0 0 0 1px rgba(255,255,255,0.3);
+        0 3px 8px rgba(0,0,0,0.55),
+        0 0 0 1px rgba(255,255,255,0.16);
       white-space: nowrap;
     }
 
     .btn-secondary {
-      background: linear-gradient(to bottom right, #241433, #0f0a18);
-      color: var(--accent-yellow-soft);
+      background: linear-gradient(to bottom right, #12351f, #050c07);
+      color: #e0ffe9;
       border-color: rgba(255,255,255,0.12);
       box-shadow:
-        0 3px 8px rgba(0,0,0,0.45),
-        0 0 0 1px rgba(255,255,255,0.08);
+        0 3px 8px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(0,0,0,0.9);
     }
 
     .btn:active {
       transform: translateY(1px);
       box-shadow:
-        0 1px 4px rgba(0,0,0,0.55),
-        0 0 0 1px rgba(255,255,255,0.35);
+        0 1px 4px rgba(0,0,0,0.7),
+        0 0 0 1px rgba(255,255,255,0.2);
     }
 
     .btn-icon {
@@ -239,7 +297,7 @@
       border-radius: 999px;
       border: 1px solid var(--border-subtle);
       padding: 4px 9px;
-      background: rgba(10,10,10,0.6);
+      background: rgba(2,7,3,0.95);
       cursor: pointer;
     }
 
@@ -265,48 +323,46 @@
       z-index: 5;
     }
 
+    /* Emerald + warm yellow header */
     thead tr {
-      background:
-        repeating-linear-gradient(
-          45deg,
-          #f7c844,
-          #f7c844 14px,
-          #e0b541 14px,
-          #e0b541 16px
-        );
+      background: linear-gradient(
+        to right,
+        rgba(16,95,48,0.95),
+        rgba(244,217,122,0.9)
+      );
     }
 
     th, td {
       padding: 6px 8px;
       text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(0,0,0,0.6);
     }
 
     th {
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #3b1a06;
+      color: #1f1303;
     }
 
     tbody tr {
-      background: rgba(11,7,16,0.88);
+      background: rgba(5,14,8,0.96);
       cursor: pointer;
       transition: background 0.15s ease, transform 0.06s ease;
     }
 
     tbody tr:nth-child(even) {
-      background: rgba(21,14,29,0.9);
+      background: rgba(8,21,11,0.98);
     }
 
     tbody tr:hover {
-      background: rgba(63,35,90,0.95);
+      background: rgba(21,69,37,0.98);
       transform: translateY(-1px);
     }
 
     tbody tr.selected {
-      outline: 1px solid var(--accent-yellow);
-      box-shadow: 0 0 0 1px rgba(247,200,68,0.6);
+      outline: 1px solid var(--accent-emerald);
+      box-shadow: 0 0 0 1px rgba(19,159,91,0.9);
       position: relative;
     }
 
@@ -317,7 +373,11 @@
       top: 0;
       bottom: 0;
       width: 4px;
-      background: linear-gradient(to bottom, var(--accent-yellow), var(--accent-purple));
+      background: linear-gradient(
+        to bottom,
+        var(--accent-emerald),
+        var(--accent-pink)
+      );
     }
 
     .level-pill {
@@ -335,20 +395,21 @@
       color: #90cdf4;
     }
     .level-WARN {
-      background: rgba(237,173,62,0.16);
+      background: rgba(237,173,62,0.18);
       color: #f6e05e;
     }
     .level-ERROR {
-      background: rgba(245,101,101,0.16);
+      background: rgba(245,101,101,0.18);
       color: #feb2b2;
     }
     .level-CRITICAL,
     .level-ALERT {
-      background: rgba(254,178,178,0.2);
+      background: rgba(254,178,178,0.25);
       color: #fed7d7;
       border: 1px solid rgba(245,101,101,0.7);
     }
 
+    /* Base tag pill */
     .tag-pill {
       display: inline-flex;
       align-items: center;
@@ -357,15 +418,29 @@
       font-size: 0.7rem;
       margin-right: 4px;
       margin-bottom: 3px;
-      background: rgba(139,92,246,0.16);
-      color: #e9d8fd;
-      border: 1px solid rgba(139,92,246,0.7);
+      background: rgba(22,101,52,0.4);
+      color: #bbf7d0;
+      border: 1px solid rgba(34,197,94,0.7);
+    }
+
+    /* Elphaba alignment (suspicious / bad) */
+    .tag-elphaba {
+      background: linear-gradient(135deg, #064e3b, #16a34a);
+      color: #ecfdf5;
+      border-color: #22c55e;
+    }
+
+    /* Glinda alignment (good / benign) */
+    .tag-glinda {
+      background: linear-gradient(135deg, #f9a8d4, #fb7185);
+      color: #fff7fb;
+      border-color: #f9a8d4;
     }
 
     .tag-pill span.remove {
       margin-left: 4px;
       cursor: pointer;
-      opacity: 0.7;
+      opacity: 0.8;
     }
 
     .muted {
@@ -393,20 +468,38 @@
       padding: 2px 6px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,0.22);
-      background: rgba(15,10,24,0.9);
+      background: rgba(4,12,7,0.95);
       color: var(--text-muted);
     }
 
+    /* Detail card with pink-green line = Glinda/Elphaba */
     .detail-card {
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(0,0,0,0.8);
       background:
-        linear-gradient(135deg, rgba(37,17,68,0.9), rgba(4,7,18,0.95));
+        linear-gradient(135deg, rgba(13,56,32,0.95), rgba(3,8,4,0.98));
       padding: 12px 12px 10px;
       display: flex;
       flex-direction: column;
       gap: 6px;
       min-height: 140px;
+      position: relative;
+    }
+
+    .detail-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 12px;
+      right: 12px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(
+        to right,
+        var(--accent-pink),
+        var(--accent-emerald)
+      );
+      opacity: 0.9;
     }
 
     .detail-line {
@@ -434,13 +527,13 @@
       line-height: 1.4;
       padding: 6px 8px;
       border-radius: 10px;
-      background: rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: radial-gradient(circle at top left, rgba(249,168,212,0.08), rgba(0,0,0,0.7));
+      border: 1px solid rgba(0,0,0,0.7);
     }
 
     .tag-editor {
       margin-top: 6px;
-      border-top: 1px dashed rgba(255,255,255,0.24);
+      border-top: 1px dashed rgba(255,255,255,0.18);
       padding-top: 6px;
     }
 
@@ -473,6 +566,7 @@
       color: var(--text-muted);
     }
 
+    /* Yellow brick road strip at bottom */
     .brick-path {
       margin-top: 10px;
       border-radius: 999px;
@@ -487,7 +581,7 @@
         );
       box-shadow:
         0 0 0 1px var(--brick-line),
-        0 6px 14px rgba(0,0,0,0.7);
+        0 6px 14px rgba(0,0,0,0.9);
       position: relative;
       overflow: hidden;
     }
@@ -501,19 +595,19 @@
       display: flex;
       align-items: center;
       font-size: 0.9rem;
-      animation: brick-walk 10s linear infinite;
+      animation: brick-walk 11s linear infinite;
     }
 
     @keyframes brick-walk {
       0% { transform: translateX(0); }
-      100% { transform: translateX(400px); }
+      100% { transform: translateX(420px); }
     }
 
     .empty-state {
       font-size: 0.8rem;
       padding: 8px 10px;
       border-radius: 10px;
-      border: 1px dashed rgba(255,255,255,0.25);
+      border: 1px dashed rgba(255,255,255,0.22);
       background: rgba(0,0,0,0.5);
       color: var(--text-muted);
       margin-top: 4px;
@@ -521,7 +615,7 @@
 
     .pill-inline {
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.16);
       padding: 1px 6px;
       font-size: 0.72rem;
       display: inline-flex;
@@ -532,15 +626,30 @@
     .pill-inline span {
       font-size: 0.9em;
     }
+
+    .empty-row {
+      text-align: center;
+      padding: 12px 8px;
+    }
+
+    .upload-right {
+      margin-left: auto;
+    }
   </style>
 </head>
 <body>
   <div class="app-shell">
     <header class="app-header">
-      <div class="logo-circle">👠</div>
+      <div class="logo-circle">
+        <span>👠</span>
+      </div>
       <div class="header-text">
         <h1>Wicked Log Road</h1>
-        <p>Follow the yellow brick road to your suspicious events.</p>
+        <p>Follow the yellow brick road straight to the sketchy events.</p>
+      </div>
+      <div class="header-orb">
+        💚 🧙‍♀️ 💖
+        <span class="label">Elphaba × Glinda</span>
       </div>
     </header>
 
@@ -576,18 +685,17 @@
             </div>
           </div>
 
-          <div class="controls-row" style="justify-content:flex-end">
+          <div class="controls-row">
             <label class="toggle-chip">
               <input id="onlyTagged" type="checkbox" />
               <span>Only tagged</span>
             </label>
+
             <button id="sampleBtn" class="btn-secondary">
               <span class="btn-icon">✨</span> Sample logs
             </button>
-          </div>
 
-          <div class="controls-row" style="margin-top:6px">
-            <div class="field-group">
+            <div class="field-group upload-right">
               <span class="field-label">Upload</span>
               <input id="fileInput" type="file" accept=".log,.txt,.jsonl,.json" />
             </div>
@@ -620,9 +728,11 @@
 
         <div class="detail-card" id="detailCard">
           <div class="empty-state" id="emptyState">
-            Tap a row on the left to see the full event here, then sprinkle tags like
+            Tap a row on the left to see the full event here, then tag the wicked
+            ones like
             <span class="pill-inline"><span>🧙‍♀️</span> Suspicious</span> or
-            <span class="pill-inline"><span>🪄</span> Benign</span>.
+            bless the good ones
+            <span class="pill-inline"><span>✨</span> Benign</span>.
           </div>
 
           <div id="detailContent" style="display:none;">
@@ -680,7 +790,6 @@
   </div>
 
   <script>
-    // --- Sample security-ish logs (inspired by typical auth/web logs) ---
     const SAMPLE_LOGS = [
       {
         id: "s1",
@@ -755,6 +864,39 @@
         tags: []
       }
     ];
+
+    // Alignment logic: Elphaba (bad) vs Glinda (good)
+    const BAD_INDICATOR_TAGS = [
+      "Suspicious",
+      "Investigate",
+      "SQLi",
+      "Brute-force",
+      "Privilege escalation"
+    ];
+
+    const GOOD_INDICATOR_TAGS = [
+      "Benign"
+    ];
+
+    function getAlignment(log) {
+      const tags = log.tags || [];
+      const level = (log.level || "").toUpperCase();
+
+      const isBad =
+        BAD_INDICATOR_TAGS.some(t => tags.includes(t)) ||
+        ["ERROR", "CRITICAL", "ALERT"].includes(level);
+
+      const isGood =
+        !isBad && GOOD_INDICATOR_TAGS.some(t => tags.includes(t));
+
+      if (isBad) {
+        return { label: "Elphaba", kind: "elphaba" };
+      }
+      if (isGood) {
+        return { label: "Glinda", kind: "glinda" };
+      }
+      return null;
+    }
 
     let logs = [...SAMPLE_LOGS];
     let selectedId = null;
@@ -854,7 +996,17 @@
         tdMsg.textContent = log.message || "";
 
         const tdTags = document.createElement("td");
-        if (log.tags && log.tags.length) {
+        const alignment = getAlignment(log);
+
+        if (alignment) {
+          const pill = document.createElement("span");
+          pill.className =
+            "tag-pill " +
+            (alignment.kind === "elphaba" ? "tag-elphaba" : "tag-glinda");
+          pill.textContent = alignment.label;
+          tdTags.appendChild(pill);
+        } else if (log.tags && log.tags.length) {
+          // fallback: show raw tags if no alignment
           log.tags.forEach(t => {
             const pill = document.createElement("span");
             pill.className = "tag-pill";
@@ -961,7 +1113,6 @@
         if (!trimmed) continue;
 
         let obj = null;
-        // Try JSON/JSONL
         if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
           try {
             const parsed = JSON.parse(trimmed);
@@ -975,12 +1126,10 @@
               tags: []
             };
           } catch {
-            // fall back to free-form
           }
         }
 
         if (!obj) {
-          // Very simple syslog-like parse: "timestamp level source message..."
           const m = trimmed.match(/^(\S+\s+\d+\s+\d+:\d+:\d+|\d{4}-\d{2}-\d{2}T\S+Z?)?\s*(INFO|WARN|ERROR|CRITICAL|ALERT)?\s*([^:]+)?:?\s*(.*)$/i);
           let ts = new Date().toISOString();
           let level = "INFO";
@@ -1010,7 +1159,6 @@
       return newLogs;
     }
 
-    // --- Event listeners ---
     searchInput.addEventListener("input", renderTable);
     levelFilter.addEventListener("change", renderTable);
     tagFilter.addEventListener("change", renderTable);
@@ -1051,11 +1199,12 @@
       }
     });
 
-    // --- Initial render ---
-    renderTable();
-    renderDetail();
+    function init() {
+      renderTable();
+      renderDetail();
+    }
+
+    init();
   </script>
 </body>
 </html>
-
-

@@ -1,0 +1,31 @@
+.levelPill {
+  display: inline-flex;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.levelINFO {
+  background: rgba(99,179,237,0.16);
+  color: #90cdf4;
+}
+
+.levelWARN {
+  background: rgba(237,173,62,0.16);
+  color: #f6e05e;
+}
+
+.levelERROR {
+  background: rgba(245,101,101,0.16);
+  color: #feb2b2;
+}
+
+.levelCRITICAL,
+.levelALERT {
+  background: rgba(254,178,178,0.2);
+  color: #fed7d7;
+  border: 1px solid rgba(245,101,101,0.7);
+}

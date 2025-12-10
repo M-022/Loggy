@@ -1,0 +1,17 @@
+:root {
+  --bg-dark: #040b05;
+  --bg-panel: #102015;
+  --bg-panel-alt: #13271a;
+  --accent-yellow: #f4d97a;
+  --accent-yellow-soft: #fff2b3;
+  --accent-green: #2fbf71;     /* Elphaba / Emerald */
+  --accent-emerald: #139f5b;
+  --accent-pink: #f9a8d4;      /* Glinda pastel pink */
+  --accent-rose: #fb7185;
+  --accent-purple: #a855f7;
+  --accent-red: #f56565;
+  --text-main: #f9fafb;
+  --text-muted: #a0aec0;
+  --border-subtle: rgba(255,255,255,0.08);
+  --brick-line: rgba(0,0,0,0.25);
+}
