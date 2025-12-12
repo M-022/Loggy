@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Wicked Log Road - Interactive log viewer",
   "scripts": {
-    "build": "cd myapp && npm install && npm run build",
+    "build": "cd myapp && npm install && npm run build && cd .. && cp -r myapp/dist dist",
     "dev": "cd myapp && npm run dev",
     "preview": "cd myapp && npm run preview"
   },
